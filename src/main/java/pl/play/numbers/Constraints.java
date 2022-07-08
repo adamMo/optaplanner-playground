@@ -28,8 +28,8 @@ class Constraints
     }
 
     Constraint nonEmpty(ConstraintFactory constraintFactory) {
-        return constraintFactory.forEachUniquePair(Weekday.class,
-                        Joiners.greaterThan(Weekday::getId),
+        return constraintFactory.forEachIncludingNullVars(Weekday.class)
+                .ifExists(Weekday.class, Joiners.lessThan(Weekday::getId),
                         Joiners.filtering((Weekday o, Weekday o2) -> o.getDay() == null)
                 )
                 .penalize("no null days", HardSoftScore.ONE_SOFT);
