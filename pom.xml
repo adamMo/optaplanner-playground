@@ -14,7 +14,7 @@
     <name>optimization playground</name>
     <description>optimization playground</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>18</java.version>
         <version.org.optaplanner>8.24.0.Final</version.org.optaplanner>
     </properties>
     <dependencies>

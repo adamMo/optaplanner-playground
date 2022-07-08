@@ -19,7 +19,7 @@ public class Controller {
 
     private final SolverManager<Solution, Long> solverManager;
 
-    @GetMapping
+    @GetMapping("/numbers")
     public void start() throws ExecutionException, InterruptedException {
         Solution solution = new Solution();
 

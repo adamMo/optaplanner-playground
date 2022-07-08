@@ -7,7 +7,7 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 @Data
 @PlanningEntity
-public class Weekday {
+class Weekday {
 
     @PlanningId
     private Long id;

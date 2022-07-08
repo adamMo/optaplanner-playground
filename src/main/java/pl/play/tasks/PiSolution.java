@@ -1,4 +1,4 @@
-package pl.play.numbers;
+package pl.play.tasks;
 
 import lombok.Data;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
@@ -10,21 +10,17 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 import java.util.List;
 
-/**
- * Super easy exercise to order days by their ordinal property
- */
 @Data
-//@PlanningSolution
-class Solution {
+@PlanningSolution
+public class PiSolution {
 
     @PlanningEntityCollectionProperty
-    private List<Weekday> daysPlanned;
+    private List<Workday> daysPlanned;
 
     @ProblemFactCollectionProperty
-    @ValueRangeProvider(id = "daysAvailable")
-    private List<DayWrapper> daysAvailable;
+    @ValueRangeProvider(id = "tasksAvailable")
+    private List<Task> tasksAvailable;
 
     @PlanningScore
     private HardSoftScore score;
 }
-
