@@ -12,18 +12,17 @@ public class Constraints implements ConstraintProvider {
         return new Constraint[]{
                 roomConflict(constraintFactory),
                 oneDayAtTheTime(constraintFactory),
-                nonEmpty(constraintFactory)
+//                nonEmpty(constraintFactory)
         };
     }
 
     Constraint roomConflict(ConstraintFactory constraintFactory) {
         // prefer the days with higher ordinal number than others
         return constraintFactory
-                .forEachUniquePair(Weekday.class,
-                        Joiners.lessThan(Weekday::getId),
-                        Joiners.greaterThan(dayWrapper -> dayWrapper.getDay().getDay().ordinal())
-                )
-                .reward("higher ordinal property", HardSoftScore.ONE_SOFT);
+                .forEach(Weekday.class)
+                .filter(weekday -> weekday.getDay() != null)
+                .reward("higher ordinal property", HardSoftScore.ONE_SOFT,
+                        ((Weekday weekday) -> weekday.getId().intValue() * weekday.getDay().getDay().ordinal()));
     }
 
     Constraint nonEmpty(ConstraintFactory constraintFactory) {
@@ -31,7 +30,7 @@ public class Constraints implements ConstraintProvider {
                 .ifExists(Weekday.class, Joiners.lessThan(Weekday::getId),
                         Joiners.filtering((Weekday o, Weekday o2) -> o.getDay() == null)
                 )
-                .penalize("not null days", HardSoftScore.ONE_SOFT);
+                .penalize("no null days", HardSoftScore.ONE_SOFT);
     }
 
     Constraint oneDayAtTheTime(ConstraintFactory factory) {
